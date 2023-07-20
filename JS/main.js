@@ -3,7 +3,7 @@ const apiUrl = "https://pokeapi.co/api/v2/pokemon/"
 const inputSearch = document.querySelector('#inputSearch');
 const searchButton = document.querySelector('#searchButton');
 const pokemonInfo = document.querySelector('#pokemonInfo');
-const canvaContainer = document.querySelector('#graphic')
+let pokemonStats = null;
 
 function handleRequestSearch(event) {
     /* Saneamiento de entrada: convertimos a minusculas */
@@ -81,10 +81,10 @@ function displayPokemon(pokemon) {
             }
         },
     };
-    const canva = document.createElement('canvas')
-    canvaContainer.appendChild(canva)
-
-    new Chart(canva, config, data)
+    if (pokemonStats) {
+        pokemonStats.destroy();
+    }
+    pokemonStats = new Chart(document.querySelector('#graphic'), config, data)
 }
 
 const showErrorMessage = () => pokemonInfo.innerHTML = `<p>No se encontró información para el Pokémon ingresado. Intente nuevamente.</p>`
